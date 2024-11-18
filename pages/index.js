@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const [todos, setTodos] = useState([]);
+  const [todo, setTodo] = useState("");
 
   useEffect(() => {
     async function fetching() {
@@ -12,6 +13,16 @@ export default function Home() {
     fetching();
   }, []);
 
+  const clickHandler = async () => {
+    const res = await fetch("/api/todos", {
+      method: "POST",
+      body: JSON.stringify({ todo }),
+      headers: { "Content-Type": "appliaction/json" },
+    });
+    const data = await res.json();
+    console.log(data);
+  };
+
   return (
     <>
       <div>
@@ -21,6 +32,10 @@ export default function Home() {
             <li key={todo.id}>{todo.title}</li>
           ))}
         </ul>
+      </div>
+      <div>
+        <input value={todo} onChange={(e) => setTodo(e.target.value)} />
+        <button onClick={clickHandler}>Click</button>
       </div>
     </>
   );

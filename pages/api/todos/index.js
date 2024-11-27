@@ -11,5 +11,8 @@ export default function handler(req, res) {
       title: todo,
     };
     res.status(201).json({ message: "added successfully", data: newTodo });
+  } else if (req.method === "DELETE") {
+    //Delete all todos
+    res.status(200).json({ message: "Deleted on Success", data: [] });
   }
 }

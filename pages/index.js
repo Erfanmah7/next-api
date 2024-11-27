@@ -23,6 +23,13 @@ export default function Home() {
     console.log(data);
   };
 
+  const deleteHandler = async () => {
+    const res = await fetch("/api/todos", { method: "DELETE" });
+    const data = await res.json();
+    setTodos(data.data);
+    console.log(data);
+  };
+
   return (
     <>
       <div>
@@ -36,6 +43,9 @@ export default function Home() {
       <div>
         <input value={todo} onChange={(e) => setTodo(e.target.value)} />
         <button onClick={clickHandler}>Click</button>
+      </div>
+      <div>
+        <button onClick={deleteHandler}>Delete All</button>
       </div>
     </>
   );

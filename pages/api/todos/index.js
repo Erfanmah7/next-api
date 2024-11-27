@@ -14,5 +14,7 @@ export default function handler(req, res) {
   } else if (req.method === "DELETE") {
     //Delete all todos
     res.status(200).json({ message: "Deleted on Success", data: [] });
+  } else if (req.method === "PUT") {
+    res.status(200).json({ message: "Replaced All", data: req.body });
   }
 }

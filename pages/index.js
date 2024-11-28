@@ -52,7 +52,7 @@ export default function Home() {
       headers: { "Content-Type": "application/json" },
     });
     const data = await res.json();
-    console.log(data);
+    setTodos(data);
   };
 
   return (

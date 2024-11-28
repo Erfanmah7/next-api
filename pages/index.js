@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const [todos, setTodos] = useState([]);
   const [todo, setTodo] = useState("");
+  const [id, setId] = useState("");
+  const [title, setTitle] = useState("");
 
   useEffect(() => {
     async function fetching() {
@@ -43,6 +45,16 @@ export default function Home() {
     setTodos(data.data);
   };
 
+  const replaceItemHandler = async () => {
+    const res = await fetch(`/api/todos/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify({ title }),
+      headers: { "Content-Type": "application/json" },
+    });
+    const data = await res.json();
+    console.log(data);
+  };
+
   return (
     <>
       <div>
@@ -62,6 +74,11 @@ export default function Home() {
       </div>
       <div>
         <button onClick={replaceHandler}>Replace All</button>
+      </div>
+      <div>
+        <input value={id} onChange={(e) => setId(e.target.value)} />
+        <input value={title} onChange={(e) => setTitle(e.target.value)} />
+        <button onClick={replaceItemHandler}>Replace item</button>
       </div>
     </>
   );
